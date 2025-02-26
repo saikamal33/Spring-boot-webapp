@@ -1,6 +1,6 @@
 # Spring-boot-webapp
 Deplyoing spring boot with full ci/cd process using jenkins, git,maven,sonarqube,dockerhub,argocd,kubenet
-
+![lifecycle image](https://github.com/saikamal33/Spring-boot-webapp/blob/main/spring-boot.png)
 ## Execute the application locally and access it using your browser
 we need to clone this repo and change into this proj root file
 ~~~
@@ -35,4 +35,8 @@ cd sonarqube-9.4.0.54424/bin/linux-x86-64/
 ./sonar.sh start
 ~~~
 we can access it using " http://<*ip address*>:9000 "
+
+Once the pipeline is executed and the image is updated to dockerhub the CI process will end
+
+Please find the CD Part at "https://github.com/saikamal33/Mark-10-Kubernet_repo/tree/main/kube-Mark-10.3"
 
