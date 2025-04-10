@@ -71,6 +71,7 @@ pipeline {
    	 	always {
         		cleanWs()  // This will remove the entire workspace at the end of the build
 	 		
-  		}
- 	}
+  			}
+ 		}
+	}
 }
