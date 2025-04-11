@@ -60,6 +60,7 @@ pipeline {
 				    ls -l
 				    git clone ${GIT_DEST_REPO}
 				    cd Mark-10-Kubernet_repo
+				    ls -l
 		                    git config user.email "kamaleshsai33@gmail.com"
 		                    git config user.name "saikamal33"
 		                    BUILD_NUMBER=${BUILD_NUMBER}
