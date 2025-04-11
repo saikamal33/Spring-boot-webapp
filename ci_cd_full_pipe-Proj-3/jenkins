@@ -52,12 +52,14 @@ pipeline {
 			environment {
 				GIT_REPO_NAME="kube-Mark-10.3"
 				GIT_USER_NAME="saikamal33"
+				GIT_DEST_REPO="https://github.com/saikamal33/Mark-10-Kubernet_repo"
 			}
 			steps {
             			withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
 		                sh '''
 				    ls -l
-				    git init
+				    git clone ${GIT_DEST_REPO}
+				    cd Mark-10-Kubernet_repo
 		                    git config user.email "kamaleshsai33@gmail.com"
 		                    git config user.name "saikamal33"
 		                    BUILD_NUMBER=${BUILD_NUMBER}
