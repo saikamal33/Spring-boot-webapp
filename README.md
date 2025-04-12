@@ -25,6 +25,12 @@ we can access this using "http://localhost:8010" apt install unzip
 ## Sonarqube server locally
 We can install sonarqube in the server using below steps
 ~~~
+System Requirements
+Java 17+ (Oracle JDK, OpenJDK, or AdoptOpenJDK)
+Hardware Recommendations:
+   Minimum 2 GB RAM
+   2 CPU cores
+sudo apt update && sudo apt install unzip -y
 adduser sonarqube
 su - sonarqube
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
