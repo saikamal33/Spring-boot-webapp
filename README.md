@@ -58,12 +58,19 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
 sudo apt-get update
 sudo apt-get install jenkins
 ~~~
-3.launch the sonarqube server as per above instructions and generater a API key.
-4.We will now add sonarqube keys(it as secret key) and dockerhub api key(this need to be as username and password) in jenkins. restart the jenkins for apply all the setup.
-5.Now we just need to configure the pipeline and run the job.which will lauch a container of docker and maven image. it will install required plugins and perform the build and unit testing along with code quality testing and maintanence with maven and sonar.
-6. once all the testing is once it will proceed to wraping it as an image and pusing it to dockerhub.
-7. Then a shell script auto update the version for the CD deployment in Mark-10-Kubernet_repo. this will trigger an CD responce.
-8. lauch a k8s cluster and deploy an argocd server with an operator. access it with username admin.
+3. launch the sonarqube server as per above instructions and generater a API key.
+
+4. We will now add sonarqube keys(it as secret key) and dockerhub api key(this need to be as username and password) in jenkins. restart the jenkins for apply all the setup.
+
+5. Now we just need to configure the pipeline and run the job.which will lauch a container of docker and maven image. 
+
+6. it will install required plugins and perform the build and unit testing along with code quality testing and maintanence with maven and sonar.
+
+7. once all the testing is once it will proceed to wraping it as an image and pusing it to dockerhub.
+
+8. Then a shell script auto update the version for the CD deployment in Mark-10-Kubernet_repo. this will trigger an CD responce.
+
+9. lauch a k8s cluster and deploy an argocd server with an operator. access it with username admin.
 ~~~
 https://operatorhub.io/operator/argocd-operator
 ~~~
@@ -76,7 +83,8 @@ kubectl apply -f https://raw.githubusercontent.com/argoproj-labs/argocd-operator
 kubectl edit secrets argocd-initial-admin-secret -n argocd ###get password here
 echo "<password>"|base64 --decode
 ~~~
-9.configure the argocd server with the destination deployment.
+
+10.configure the argocd server with the destination deployment.
 
 we can access it using " http://<*ip address*>:9000 "
 
