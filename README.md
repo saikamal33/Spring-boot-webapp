@@ -1,6 +1,6 @@
 # Spring-boot-webapp
 Deplyoing spring boot with full ci/cd process using jenkins, git,maven,sonarqube,dockerhub,argocd,kubenet
-![lifecycle image](https://github.com/saikamal33/Spring-boot-webapp/blob/main/spring-boot.png)
+![lifecycle image](https://github.com/saikamal33/Spring-boot-webapp/blob/main/sonar-pipeline.png)
 ## Execute the application locally and access it using your browser
 we need to clone this repo and change into this proj root file
 ~~~
