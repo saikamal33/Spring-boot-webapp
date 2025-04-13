@@ -1,10 +1,13 @@
 pipeline {
 	agent {
-	  docker {
-		image 'kamalsai33/maven-docker-agt:v1'
-		args '--user root -v /var/run/docker.sock:/var/run/docker.sock' //mount docker socket to access the hosts docker daemon
-	  }
-	}
+		docker {
+			image 'kamalsai33/maven-docker-agt:v1'
+			args '--user root -v /var/run/docker.sock:/var/run/docker.sock' //mount docker socket to access the hosts docker daemon
+	 	 }
+  	}
+	environment {
+		DOCKER_IMAGE = "kamalsai33/ultimate-cicd:${BUILD_NUMBER}"
+		}
 	
 	stages {
 		stage('checkout') {
@@ -24,7 +27,7 @@ pipeline {
 
 		stage('static code analysis') {
 			environment {
-				SONAR_URL = "http://192.168.146.132:9000"
+				SONAR_URL = "http://192.168.146.129:9000"
 			}
 			steps {
 				withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
@@ -34,8 +37,7 @@ pipeline {
 		}
 		stage('build and push docker image') {
 			environment {
-				DOCKER_IMAGE = "kamalsai33/ultimate-cicd:v1"
-				// DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/dockerfile"
+				DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/dockerfile"
 				REGISTRY_CREDENTIALS = credentials('docker-crd')
 			}
 			steps {
@@ -48,11 +50,35 @@ pipeline {
 				}
 			}
 		}
+		stage('updating deployment file') {
+			environment {
+				GIT_REPO_NAME="Mark-10-Kubernet_repo"
+				GIT_USER_NAME="saikamal33"
+				GIT_DEST_REPO="https://github.com/saikamal33/Mark-10-Kubernet_repo"
+			}
+			steps {
+            			withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+		                sh '''
+				    ls -l
+				    git clone ${GIT_DEST_REPO}
+				    cd Mark-10-Kubernet_repo
+		                    git config user.email "kamaleshsai33@gmail.com"
+		                    git config user.name "saikamal33"
+		                    BUILD_NUMBER=${BUILD_NUMBER}
+		                    sed -i "s|image: .*$|image: ${DOCKER_IMAGE}|" kube-Mark-10.3/deployment.yml
+		                    git add kube-Mark-10.3/deployment.yml
+		                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+		                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+		                '''
+            			}
+			}
+		}
 	}
 	post {
    	 	always {
         		cleanWs()  // This will remove the entire workspace at the end of the build
 	 		
-  		}
- 	}
+		}
+	}
 }
+
