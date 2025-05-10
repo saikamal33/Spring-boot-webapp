@@ -13,7 +13,6 @@ pipeline {
 		stage('checkout') {
 			steps {
 		   		sh 'echo passed'
-		   		//git branch: 'main',url: 'https://github.com/saikamal33/Mark-11.git'
 			}
 	  	}
 		stage('Build and Test') {
