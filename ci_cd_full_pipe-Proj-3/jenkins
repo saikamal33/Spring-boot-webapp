@@ -54,6 +54,7 @@ pipeline {
 				GIT_REPO_NAME="Mark-10-Kubernet_repo"
 				GIT_USER_NAME="saikamal33"
 				GIT_DEST_REPO="https://github.com/saikamal33/Mark-10-Kubernet_repo"
+				GIT_DEST_DEPLOYMENT="kube-Mark-10.3/deployment.yml"
 			}
 			steps {
             			withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
