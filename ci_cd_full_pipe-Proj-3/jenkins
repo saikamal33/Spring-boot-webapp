@@ -1,4 +1,4 @@
-@Library("imageUpdate") _
+@Library('my-shared-lib') _
 
 pipeline {
 	agent {
