@@ -60,7 +60,9 @@ pipeline {
 			}
 			steps {
             			withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-		                imageUpdate{}
+				script {
+		                	imageUpdate{}
+					}
             			}
 			}
 		}
