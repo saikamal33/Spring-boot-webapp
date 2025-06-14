@@ -1,3 +1,5 @@
+@Library('my-shared-lib') _
+
 pipeline {
 	agent {
 		docker {
@@ -26,7 +28,7 @@ pipeline {
 
 		stage('static code analysis') {
 			environment {
-				SONAR_URL = "http://192.168.146.129:9000"
+				SONAR_URL = "http://192.168.146.132:9000"
 			}
 			steps {
 				withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
@@ -54,10 +56,11 @@ pipeline {
 				GIT_REPO_NAME="Mark-10-Kubernet_repo"
 				GIT_USER_NAME="saikamal33"
 				GIT_DEST_REPO="https://github.com/saikamal33/Mark-10-Kubernet_repo"
+				GIT_DEST_DEPLOYMENT="kube-Mark-10.3/deployment.yml"
 			}
 			steps {
             			withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-		                sh '''
+				sh '''
 				    ls -l
 				    git clone ${GIT_DEST_REPO}
 				    cd Mark-10-Kubernet_repo
