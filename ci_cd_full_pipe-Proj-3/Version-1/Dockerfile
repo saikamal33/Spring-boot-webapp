@@ -1,4 +1,3 @@
-
 FROM adoptopenjdk/openjdk11:alpine-jre
 
 # Simply the artifact path
