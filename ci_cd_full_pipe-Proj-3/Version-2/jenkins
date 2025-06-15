@@ -38,7 +38,7 @@ pipeline {
 		}
 		stage('build and push docker image') {
 			environment {
-				DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/dockerfile"
+				DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/Version-2/dockerfile"
 				REGISTRY_CREDENTIALS = credentials('docker-crd')
 			}
 			steps {
