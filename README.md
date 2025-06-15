@@ -92,3 +92,10 @@ Once the pipeline is executed and the image is updated to dockerhub the CI proce
 
 Please find the CD Part at "https://github.com/saikamal33/Mark-10-Kubernet_repo/tree/main/kube-Mark-10.3"
 
+## Version-2
+
+To build the image for the base jenkins, we need to run below for the docker build.
+~~~
+docker build -f dock/Dockerfile -t kamalsai33/maven-docker-pre:v3 .
+~~~
+
