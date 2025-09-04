@@ -13,6 +13,10 @@ pipeline {
 		GIT_USER_NAME="saikamal33"
 		GIT_DEST_REPO="https://github.com/saikamal33/Mark-10-Kubernet_repo"
 		GIT_DEST_DEPLOYMENT="kube-Mark-10.3/deployment.yml"
+		GIT_USER_EMAIL="kamaleshsai33@gmail.com
+		DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/Version-2/dockerfile"
+		REGISTRY_CREDENTIALS = credentials('docker-crd')
+		SONAR_URL = "http://192.168.146.132:9000"
 		}
 	
 	stages {
@@ -31,9 +35,6 @@ pipeline {
 		}
 
 		stage('static code analysis') {
-			environment {
-				SONAR_URL = "http://192.168.146.132:9000"
-			}
 			steps {
 				withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
           			sh 'cd ci_cd_full_pipe-Proj-3/Version-2 && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
@@ -41,10 +42,6 @@ pipeline {
 			}
 		}
 		stage('build and push docker image') {
-			environment {
-				DOCKERFILE_LOCATION = "ci_cd_full_pipe-Proj-3/Version-2/dockerfile"
-				REGISTRY_CREDENTIALS = credentials('docker-crd')
-			}
 			steps {
 				script {
 					sh "cd ci_cd_full_pipe-Proj-3/Version-2 && docker build -t ${DOCKER_IMAGE} ."
@@ -62,8 +59,8 @@ pipeline {
 				    ls -l
 				    git clone ${GIT_DEST_REPO}
 				    cd Mark-10-Kubernet_repo
-		                    git config user.email "kamaleshsai33@gmail.com"
-		                    git config user.name "saikamal33"
+		                    git config user.email ${GIT_USER_EMAIL}
+		                    git config user.name ${GIT_USER_NAME}
 		                    BUILD_NUMBER=${BUILD_NUMBER}
 		                    sed -i "s|image: .*$|image: ${DOCKER_IMAGE}|" kube-Mark-10.3/deployment.yml
 		                    git add kube-Mark-10.3/deployment.yml
